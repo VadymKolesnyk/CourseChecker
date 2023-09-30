@@ -27,6 +27,10 @@ internal class Provider
 
         adapter.Fill(dataTable);
 
+        if (dataTable.Rows.Count == 0)
+        {
+            return null;
+        }
         return dataTable.Rows[0].ToObject<Split>();
 
     }

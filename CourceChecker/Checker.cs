@@ -23,13 +23,17 @@ internal class Checker
         {
             CheckOne(split);
         }
-        return splits.Last().Id;
+        return splits.LastOrDefault()?.Id ?? -1;
 
     }
 
     public int CheckLast()
     {
         var split = _provider.GetLastSplit();
+        if (split is null)
+        {
+            return -1;
+        }
         CheckOne(split);
         return split.Id;
     }

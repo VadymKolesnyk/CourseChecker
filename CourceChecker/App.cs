@@ -8,17 +8,25 @@ class App
     private int _lastChecked = -1;
 
     public App(
-        string splitPath,
-        string oldFPath,
+        string path,
         TimeSpan period,
         IDictionary<string, string> groups)
     {
+
         _period = period;
 
-        _provider = new Provider(splitPath, oldFPath);
+        _provider = new Provider(Path.Combine(path, "SPLIT.dbf"), Path.Combine(path, "OLD.dbf"));
+
+        var logPath = Path.Combine(path, "Log.txt");
+
         _checker = new Checker(_provider, groups)
         {
-            Log = Console.WriteLine
+            Log = message =>
+            {
+                Console.WriteLine(message);
+                File.AppendAllLines(logPath, new[] { $"[{DateTime.Now:G}] {message}" });
+
+            }
         };
     }
 
@@ -49,15 +57,24 @@ class App
 
     public async Task CheckLastAsync()
     {
+
         while (true)
         {
-            var split = _provider.GetLastSplit();
-            if (split.Id != _lastChecked)
+            try
             {
-                _checker.CheckById(split.Id);
-                _lastChecked = split.Id;
+                var split = _provider.GetLastSplit();
+                if (split is not null && split.Id != _lastChecked)
+                {
+                    _checker.CheckById(split.Id);
+                    _lastChecked = split.Id;
+                }
+                await Task.Delay(_period);
             }
-            await Task.Delay(_period);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
         }
     }
 }
