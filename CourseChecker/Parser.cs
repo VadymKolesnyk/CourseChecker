@@ -1,6 +1,6 @@
-﻿using CourceChecker.Items;
+﻿using CourseChecker.Items;
 
-namespace CourceChecker;
+namespace CourseChecker;
 internal class Parser
 {
     public static IItem Parse(string text)

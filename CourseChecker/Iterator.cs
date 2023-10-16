@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CourceChecker;
+namespace CourseChecker;
 internal class Iterator<T> : IEnumerator<T>
 {
     private readonly IEnumerable<T> _items;

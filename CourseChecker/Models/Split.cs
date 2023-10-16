@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
-namespace CourceChecker.Models;
+namespace CourseChecker.Models;
 [DebuggerDisplay("{Nomer} {PointsString}")]
 record Split
 {

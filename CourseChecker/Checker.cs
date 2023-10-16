@@ -1,7 +1,7 @@
-﻿using CourceChecker.Items;
-using CourceChecker.Models;
+﻿using CourseChecker.Items;
+using CourseChecker.Models;
 
-namespace CourceChecker;
+namespace CourseChecker;
 internal class Checker
 {
     private readonly Provider _provider;
@@ -41,7 +41,14 @@ internal class Checker
     public void CheckById(int id)
     {
         var split = _provider.GetSplitById(id);
-        CheckOne(split);
+        if (split is null)
+        {
+            Log?.Invoke($"Split with id {id} is not found.");
+        } 
+        else
+        {
+            CheckOne(split);
+        }
     }
 
     void CheckOne(Split split)
@@ -60,11 +67,11 @@ internal class Checker
                 _provider.UpdateSplit(split.Id, true, pointError);
                 _provider.UpdateOldRecord(split.Nomer, true);
             }
-            Log?.Invoke($"{split.Nomer,-3} | {(correct ? "Ok" : "Error on " + pointError),-12} | {split.SportsmanName,-23} | {split.Group,-5} | ");
+            Log?.Invoke($"{split.Id,-3} | {split.Nomer,-3} | {(correct ? "Ok" : "Error on " + pointError),-12} | {split.SportsmanName,-23} | {split.Group,-5} | ");
         }
         catch (Exception e)
         {
-            Log?.Invoke($"{split.Nomer,-3} |              | {split.SportsmanName,-23} | {split.Group,-5} | {e.Message}");
+            Log?.Invoke($"{split.Id,-3} | {split.Nomer,-3} |              | {split.SportsmanName,-23} | {split.Group,-5} | {e.Message}");
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace CourceChecker.Items;
+﻿namespace CourseChecker.Items;
 internal class AnyOfBlock : IItem
 {
     private readonly int _amount;

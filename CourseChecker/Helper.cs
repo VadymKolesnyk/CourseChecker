@@ -2,7 +2,7 @@
 using System.Data;
 using System.Reflection;
 
-namespace CourceChecker;
+namespace CourseChecker;
 
 static class Helper
 {

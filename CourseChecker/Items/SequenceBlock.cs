@@ -1,4 +1,4 @@
-﻿namespace CourceChecker.Items;
+﻿namespace CourseChecker.Items;
 internal class SequenceBlock : IItem
 {
     private readonly IItem[] _items;

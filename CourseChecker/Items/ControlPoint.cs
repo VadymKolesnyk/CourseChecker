@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace CourceChecker.Items;
+namespace CourseChecker.Items;
 [DebuggerDisplay("{Number}")]
 internal class ControlPoint : IItem
 {

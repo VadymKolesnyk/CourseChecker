@@ -1,8 +1,8 @@
-﻿using CourceChecker.Models;
+﻿using CourseChecker.Models;
 using System.Data;
 using System.Data.OleDb;
 
-namespace CourceChecker;
+namespace CourseChecker;
 internal class Provider
 {
     private readonly string _splitPath;
@@ -40,13 +40,18 @@ internal class Provider
         using var conn = new OleDbConnection($"Provider=VFPOLEDB.1;Data Source={_splitPath}");
         conn.Open();
 
-        var query = $"SELECT * FROM {_splitPath} WHERE NPP = {id}";
+        var query = $"SELECT * FROM {_splitPath} WHERE npp = {id}";
 
         var adapter = new OleDbDataAdapter(query, conn);
 
         var dataTable = new DataTable();
 
         adapter.Fill(dataTable);
+
+        if (dataTable.Rows.Count == 0)
+        {
+            return null;
+        }   
 
         return dataTable.Rows[0].ToObject<Split>();
     }

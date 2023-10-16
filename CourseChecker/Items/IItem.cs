@@ -1,4 +1,4 @@
-﻿namespace CourceChecker.Items;
+﻿namespace CourseChecker.Items;
 internal interface IItem
 {
     bool Check(IEnumerable<string> points, out IEnumerable<string> rest, out string pointError);
